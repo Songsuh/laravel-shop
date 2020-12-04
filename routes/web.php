@@ -14,12 +14,19 @@
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+//首页
 Route::get('/', 'PagesController@root')->name('root');
-
+//登录注册路由
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware'=>'auth'],function(){
+    //邮箱验证提示路由
+    Route::get('/email_verify_notice','PagesController@emailVerifyNotice')->name('email_verify_notice');
+    //
+    Route::group(['middleware'=>'email_verified'],function (){
+        Route::get('/test',function (){
+            return "Your email is verified";
+        });
+    });
+});
