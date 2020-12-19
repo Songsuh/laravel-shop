@@ -14,6 +14,7 @@ class Handler extends ExceptionHandler
      */
     protected $dontReport = [
         //
+        InvalidRequestException::class,//自定义 错误提示类
     ];
 
     /**
