@@ -37,4 +37,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'email_verified' => 'boolean',
     ];
+    //收货地址
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class);
+    }
 }
