@@ -53,12 +53,15 @@ class ProductsController extends Controller
      */
     public function edit($id, Content $content)
     {
-        return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
+        return Admin::content(function (Content $content) use ($id) {
+            $content->header('编辑商品');
+            $content->body($this->form()->edit($id));
+        });
     }
-
+    public function update($id)
+    {
+        return $this->form()->update($id);
+    }
     /**
      * Create interface.
      *
@@ -146,7 +149,7 @@ class ProductsController extends Controller
             $form->image('image', '封面图片')->rules('required|image');
 
             // 创建一个富文本编辑器
-            $form->editor('description', '商品描述')->rules('required');
+            $form->simditor('description', '商品描述')->rules('required');
 
             // 创建一组单选框
             $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
